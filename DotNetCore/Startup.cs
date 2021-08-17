@@ -39,6 +39,9 @@ namespace DotNetCore
 
             //services.AddTransient<ICompanyRepository, CompanyRepositoryAdo>();
             services.AddSingleton<ICompanyRepository>(new CompanyRepositoryAdo(Configuration["ConnectionStrings:DefaultConnection"]));
+
+            services.AddTransient<IIdeaRepository, IdeaRepository>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
