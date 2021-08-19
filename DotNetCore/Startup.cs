@@ -40,9 +40,30 @@ namespace DotNetCore
             //services.AddTransient<ICompanyRepository, CompanyRepositoryAdo>();
             services.AddSingleton<ICompanyRepository>(new CompanyRepositoryAdo(Configuration["ConnectionStrings:DefaultConnection"]));
 
-            services.AddTransient<IIdeaRepository, IdeaRepository>();
+            //services.AddSingleton<IIdeaRepository>(new IdeaRepositoryEF(Configuration.GetConnectionString("DefaultConnection")));
+            //services.AddSingleton<IIdeaRepository, IdeaRepositoryEF>();
+            //services.AddTransient<IIdeaRepository, IdeaRepository>();
+            //services.AddDbContext<IdeaContext>(options =>
+            //    options.UseSqlServer(
+            //        Configuration.GetConnectionString("DefaultConnection")));
+            //services.AddSingleton<IIdeaRepository, IdeaRepositoryEF>();
+
+
+            // ============================================================================== // 
+            // 새로운 DbContext 추가
+            services.AddDbContext<IdeaContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            // ============================================================================== // 
+
+            DependencyInjectionContainer(services);
+        }
+
+        private void DependencyInjectionContainer(IServiceCollection services)
+        {
+            services.AddSingleton<IIdeaRepository, IdeaRepositoryEF>();
 
         }
+
+
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

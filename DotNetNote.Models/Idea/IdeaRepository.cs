@@ -17,7 +17,7 @@ namespace DotNetNote.Models
             _config = config;
 
             //db = new SqlConnection(_config.GetSection("ConnectionString").Value);
-            db = new SqlConnection(_config.GetSection("DefaultConnection").Value);
+            db = new SqlConnection(_config.GetSection("ConnectionStrings").GetSection("DefaultConnection").Value);
         }
 
         public List<Idea> GetAll() =>
