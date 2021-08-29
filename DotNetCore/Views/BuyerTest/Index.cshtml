@@ -1,0 +1,18 @@
+﻿@model List<Buyer>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>BuyerTest/Index</h2>
+
+<ul>
+    @foreach (var buyer in Model)
+    {
+        <li>
+
+            @buyer.BuyerId - @buyer.BuyerName - @buyer.BuyerCode
+
+        </li>
+    }
+</ul>
+

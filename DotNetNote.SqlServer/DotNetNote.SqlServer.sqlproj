@@ -62,5 +62,6 @@
   <ItemGroup>
     <Build Include="dbo\Table\Companies.sql" />
     <Build Include="dbo\Table\Ideas.sql" />
+    <Build Include="dbo\Table\Buyers.sql" />
   </ItemGroup>
 </Project>

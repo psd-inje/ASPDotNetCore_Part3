@@ -9,10 +9,12 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DotNetCore.Components;
 
 namespace DotNetCore
 {
@@ -42,16 +44,21 @@ namespace DotNetCore
 
             //services.AddSingleton<IIdeaRepository>(new IdeaRepositoryEF(Configuration.GetConnectionString("DefaultConnection")));
             //services.AddSingleton<IIdeaRepository, IdeaRepositoryEF>();
-            //services.AddTransient<IIdeaRepository, IdeaRepository>();
+            services.AddTransient<IIdeaRepository, IdeaRepository>();
             //services.AddDbContext<IdeaContext>(options =>
             //    options.UseSqlServer(
             //        Configuration.GetConnectionString("DefaultConnection")));
             //services.AddSingleton<IIdeaRepository, IdeaRepositoryEF>();
 
 
+
+            services.AddSingleton<IBuyerRepository>(new BuyerRepository(Configuration["ConnectionStrings:DefaultConnection"]));
+
             // ============================================================================== // 
             // 새로운 DbContext 추가
             services.AddDbContext<IdeaContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            //services.AddDbContext<TodoContext>(options => options.UseInMemoryDatabase("Todo"));
+            services.AddDbContext<Todo2Context>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             // ============================================================================== // 
 
             DependencyInjectionContainer(services);
@@ -59,7 +66,7 @@ namespace DotNetCore
 
         private void DependencyInjectionContainer(IServiceCollection services)
         {
-            services.AddSingleton<IIdeaRepository, IdeaRepositoryEF>();
+            //services.AddSingleton<IIdeaRepository, IdeaRepositoryEF>();
 
         }
 
